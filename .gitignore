@@ -1,0 +1,5 @@
+bin/sunsetForest.app/
+bin/sunsetForestDebug.app/
+/obj/
+/.vscode/
+*.DS_Store
