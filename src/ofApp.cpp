@@ -29,7 +29,7 @@ void ofApp::setup(){
     
     
     ofPixels danchiPixels = danchiImg.getPixels();
-    float th = 0.7;
+    float th = 0.65;
     for (int y = 0; y < danchiPixels.getHeight(); y++) {
         for (int x = danchiPixels.getWidth() - 1; x > 0; x--) {
             ofColor color_ = danchiPixels.getColor(x, y);
@@ -97,8 +97,10 @@ void ofApp::setup(){
     
     dizziness = 0;
     lightRate = 1.;
+    entranceRate = 0.;
     lightRateDirection = true;
     dizzinessDirection = false;
+    entranceRateDirection = false;
     
     planeX = 1100;
     planeY = 720;
@@ -128,11 +130,20 @@ void ofApp::update(){
     movie.update();
     if (lightRateDirection) {
         if(lightRate<1){
-            lightRate+=0.01;
+            lightRate+=0.005;
         }
     }else{
         if(lightRate>0){
-            lightRate-=0.01;
+            lightRate-=0.005;
+        }
+    }
+    if (entranceRateDirection) {
+        if(entranceRate<1){
+            entranceRate+=0.005;
+        }
+    }else{
+        if(entranceRate>0){
+            entranceRate-=0.005;
         }
     }
     if (dizzinessDirection) {
@@ -145,7 +156,7 @@ void ofApp::update(){
         }
     }
     if (dizziness==100) {
-        planeX = planeX+ofRandom(-0.2, 0.2);
+        planeZ = planeZ+ofRandom(-0.2, 0.2);
         plane.setPosition(planeX, planeY, planeZ);
         
         plane2Z = plane2Z+ofRandom(-0.1, 0.1);
@@ -170,17 +181,17 @@ void ofApp::draw(){
     movie.draw(0, 0, 1782, 1336.5);
     
     
-    ofSetColor(255, 255, 255, 255*pow(1-lightRate, 3));
+    ofSetColor(255, 255, 255, 255*pow(entranceRate*(1-lightRate), 3));
     edittedDanchiImg.bind();
     plane.draw();
     edittedDanchiImg.unbind();
     
-    ofSetColor(255, 255, 255, 245*pow(1-lightRate, 3));
+    ofSetColor(255, 255, 255, 240*pow(entranceRate*(1-lightRate), 3));
     edittedElavatorImg.bind();
     plane2.draw();
     edittedElavatorImg.unbind();
     
-    ofSetColor(255, 255, 255, 140*pow(1-lightRate, 3));
+    ofSetColor(255, 255, 255, 140*pow(entranceRate*(1-lightRate), 3));
     edittedDoorImg.bind();
     plane3.draw();
     edittedDoorImg.unbind();
@@ -204,6 +215,12 @@ void ofApp::keyPressed(int key){
             lightRateDirection=true;
         }
         break;
+    case 'e':
+        if(entranceRateDirection) {
+            entranceRateDirection=false;
+        }else{
+            entranceRateDirection=true;
+        }
     }
 }
 
