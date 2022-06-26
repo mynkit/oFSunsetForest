@@ -28,7 +28,7 @@ void raindrop::draw() {
     polyline.clear();
     polyline.addVertex(this->x, this->y, this->z);
     polyline.addVertex(this->x, this->y+this->length, this->z);
-    ofSetLineWidth(ofRandom(0, 1));
+    ofSetLineWidth(ofRandom(0, 3));
     polyline.draw();
     ofSetLineWidth(1);
 }
