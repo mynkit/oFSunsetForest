@@ -19,12 +19,14 @@ void raindrop::update() {
     this->y = this->y + this->speed;
     if (this->y > ofGetHeight()) {
         this->y = 0;
+        this->x = ofRandom(0,ofGetWidth());
+        this->z = ofRandom(-500,500);
     }
 }
 
 void raindrop::draw() {
     int color_ = ofRandom(0, 255);
-    ofSetColor(color_,color_,color_,100);
+    ofSetColor(color_,color_,color_,ofRandom(80, 100));
     polyline.clear();
     polyline.addVertex(this->x, this->y, this->z);
     polyline.addVertex(this->x, this->y+this->length, this->z);
