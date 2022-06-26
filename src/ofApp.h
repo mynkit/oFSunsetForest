@@ -50,5 +50,7 @@ class ofApp : public ofBaseApp{
         bool entranceRateDirection;
         ofCamera cam;
         vector<raindrop*> raindrops;
+        int maxRaindropCount;
         int raindropCount;
+        bool raindropCountDirection;
 };

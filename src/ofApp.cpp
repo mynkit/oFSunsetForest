@@ -12,8 +12,9 @@ void ofApp::setup(){
     movie.load("forest_trim_concat_0.4.mov");
     movie.play();
     // 雨粒
-    raindropCount = 100;
-    raindrops.resize(raindropCount);
+    maxRaindropCount = 300;
+    raindropCount = 0;
+    raindrops.resize(maxRaindropCount);
     for (int i=0; i<raindrops.size(); i++) {
         raindrops[i] = new raindrop();
     }
@@ -138,6 +139,15 @@ void ofApp::update(){
     for (int i=0; i<raindrops.size(); i++) {
         raindrops[i]->update();
     }
+    if (raindropCountDirection) {
+        if(raindropCount<maxRaindropCount){
+            raindropCount+=1;
+        }
+    }else{
+        if(raindropCount>0){
+            raindropCount-=1;
+        }
+    }
     if (lightRateDirection) {
         if(lightRate<1){
             lightRate+=0.005;
@@ -206,7 +216,7 @@ void ofApp::draw(){
     plane3.draw();
     edittedDoorImg.unbind();
     
-    for (int i=0; i<raindrops.size(); i++) {
+    for (int i=0; i<raindropCount; i++) {
         raindrops[i]->draw();
     }
     
@@ -235,6 +245,15 @@ void ofApp::keyPressed(int key){
         }else{
             entranceRateDirection=true;
         }
+        break;
+    case 'r':
+        if(raindropCountDirection) {
+            raindropCountDirection=false;
+        }else{
+            raindropCountDirection=true;
+        }
+        break;
+        
     }
 }
 
