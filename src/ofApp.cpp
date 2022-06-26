@@ -117,14 +117,14 @@ void ofApp::setup(){
     plane.setPosition(planeX, planeY, planeZ);
     plane.rotate(180, ofVec3f(1, 0, 0));
     
-    plane2X = 1160;
+    plane2X = 1161;
     plane2Y = 1150;
     plane2Z = 40;
     plane2.set(128, 170);
     plane2.setPosition(plane2X, plane2Y, plane2Z);
     plane2.rotate(185, ofVec3f(1, 0, 0));
     
-    plane3X = 1440;
+    plane3X = 1442;
     plane3Y = 1180;
     plane3Z = 40;
     plane3.set(110, 180);
@@ -175,16 +175,16 @@ void ofApp::update(){
             dizziness-=1;
         }
     }
-    if (dizziness==100) {
-        planeZ = planeZ+ofRandom(-0.2, 0.2);
-        plane.setPosition(planeX, planeY, planeZ);
-        
-        plane2Z = plane2Z+ofRandom(-0.1, 0.1);
-        plane2.setPosition(plane2X, plane2Y, plane2Z);
-        
-        plane3Y = plane3Y+ofRandom(-0.1, 0.1);
-        plane3.setPosition(plane3X, plane3Y, plane3Z);
-    }
+//    if (dizziness==100) {
+//        planeZ = planeZ+ofRandom(-0.2, 0.2);
+//        plane.setPosition(planeX, planeY, planeZ);
+//
+//        plane2Z = plane2Z+ofRandom(-0.1, 0.1);
+//        plane2.setPosition(plane2X, plane2Y, plane2Z);
+//
+//        plane3Y = plane3Y+ofRandom(-0.1, 0.1);
+//        plane3.setPosition(plane3X, plane3Y, plane3Z);
+//    }
 }
 
 //--------------------------------------------------------------
@@ -194,7 +194,7 @@ void ofApp::draw(){
     ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, 255-lightRate*50);
     forestImg.draw(0, 0, 1782, 1336.5);
 
-    ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, 255-lightRate*255);
+    ofSetColor(225, 225, 225, 255-lightRate*255);
     edittedForestImg.draw(0, 0, 1782, 1336.5);
 
     ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, dizziness-lightRate*20);
