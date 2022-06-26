@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "raindrop.hpp"
 
 class ofApp : public ofBaseApp{
 
@@ -45,5 +46,9 @@ class ofApp : public ofBaseApp{
         bool dizzinessDirection;
         float lightRate;
         bool lightRateDirection;
+        float entranceRate;
+        bool entranceRateDirection;
         ofCamera cam;
+        vector<raindrop*> raindrops;
+        int raindropCount;
 };

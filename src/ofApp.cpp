@@ -11,6 +11,13 @@ void ofApp::setup(){
     doorImg.load("door.jpg");
     movie.load("forest_trim_concat_0.4.mov");
     movie.play();
+    // 雨粒
+    raindropCount = 100;
+    raindrops.resize(raindropCount);
+    for (int i=0; i<raindrops.size(); i++) {
+        raindrops[i] = new raindrop();
+    }
+    
     
     // 鳥居の赤を明るくして強調する
     ofPixels forestPixels = forestImg.getPixels();
@@ -128,6 +135,9 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     movie.update();
+    for (int i=0; i<raindrops.size(); i++) {
+        raindrops[i]->update();
+    }
     if (lightRateDirection) {
         if(lightRate<1){
             lightRate+=0.005;
@@ -173,28 +183,32 @@ void ofApp::draw(){
     
     ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, 255-lightRate*50);
     forestImg.draw(0, 0, 1782, 1336.5);
-    
+
     ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, 255-lightRate*255);
     edittedForestImg.draw(0, 0, 1782, 1336.5);
 
     ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, dizziness-lightRate*20);
     movie.draw(0, 0, 1782, 1336.5);
-    
-    
+
+
     ofSetColor(255, 255, 255, 255*pow(entranceRate*(1-lightRate), 3));
     edittedDanchiImg.bind();
     plane.draw();
     edittedDanchiImg.unbind();
-    
+
     ofSetColor(255, 255, 255, 240*pow(entranceRate*(1-lightRate), 3));
     edittedElavatorImg.bind();
     plane2.draw();
     edittedElavatorImg.unbind();
-    
+
     ofSetColor(255, 255, 255, 140*pow(entranceRate*(1-lightRate), 3));
     edittedDoorImg.bind();
     plane3.draw();
     edittedDoorImg.unbind();
+    
+    for (int i=0; i<raindrops.size(); i++) {
+        raindrops[i]->draw();
+    }
     
 }
 
