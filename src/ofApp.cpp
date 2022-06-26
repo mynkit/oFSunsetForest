@@ -194,7 +194,7 @@ void ofApp::draw(){
     ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, 255-lightRate*50);
     forestImg.draw(0, 0, 1782, 1336.5);
 
-    ofSetColor(225, 225, 225, 255-lightRate*255);
+    ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, 255-lightRate*255);
     edittedForestImg.draw(0, 0, 1782, 1336.5);
 
     ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, dizziness-lightRate*20);
