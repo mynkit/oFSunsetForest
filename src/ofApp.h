@@ -33,6 +33,12 @@ class ofApp : public ofBaseApp{
         ofPlanePrimitive plane;
         ofPlanePrimitive plane2;
         ofPlanePrimitive plane3;
+        bool elavatorOff;
+        bool danchiOff;
+        bool doorOff;
+        float elavatorTimer;
+        float danchiTimer;
+        float doorTimer;
         float planeX;
         float planeY;
         float planeZ;

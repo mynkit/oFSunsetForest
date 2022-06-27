@@ -110,6 +110,13 @@ void ofApp::setup(){
     dizzinessDirection = false;
     entranceRateDirection = false;
     
+    elavatorOff = false;
+    danchiOff = false;
+    doorOff = false;
+    elavatorTimer = ofGetElapsedTimef();
+    danchiTimer = ofGetElapsedTimef();
+    doorTimer = ofGetElapsedTimef();
+    
     planeX = 1100;
     planeY = 720;
     planeZ = 100;
@@ -170,21 +177,37 @@ void ofApp::update(){
         if(dizziness<100){
             dizziness+=1;
         }
+        // 目眩し始めたら入り口たちは点滅する
+        bool rnd = ofRandom(100)<0.8;
+        if(rnd) {
+            elavatorOff=true;
+            elavatorTimer=ofGetElapsedTimef() + ofRandom(0.f,0.08f);
+            danchiOff=true;
+            danchiTimer=ofGetElapsedTimef() + ofRandom(0.f,0.08f);
+            doorOff=true;
+            doorTimer=ofGetElapsedTimef() + ofRandom(0.f,0.08f);
+        }
     }else{
         if(dizziness>0){
             dizziness-=1;
         }
     }
-//    if (dizziness==100) {
-//        planeZ = planeZ+ofRandom(-0.2, 0.2);
-//        plane.setPosition(planeX, planeY, planeZ);
-//
-//        plane2Z = plane2Z+ofRandom(-0.1, 0.1);
-//        plane2.setPosition(plane2X, plane2Y, plane2Z);
-//
-//        plane3Y = plane3Y+ofRandom(-0.1, 0.1);
-//        plane3.setPosition(plane3X, plane3Y, plane3Z);
-//    }
+    // タイマーが終了したら入り口消えるの解除
+    if(elavatorOff){
+        if(elavatorTimer<ofGetElapsedTimef()){
+            elavatorOff=false;
+        }
+    }
+    if(danchiOff){
+        if(danchiTimer<ofGetElapsedTimef()){
+            danchiOff=false;
+        }
+    }
+    if(doorOff){
+        if(doorTimer<ofGetElapsedTimef()){
+            doorOff=false;
+        }
+    }
 }
 
 //--------------------------------------------------------------
@@ -200,21 +223,24 @@ void ofApp::draw(){
     ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, dizziness-lightRate*20);
     movie.draw(0, 0, 1782, 1336.5);
 
-
-    ofSetColor(255, 255, 255, 255*pow(entranceRate*(1-lightRate), 3));
-    edittedDanchiImg.bind();
-    plane.draw();
-    edittedDanchiImg.unbind();
-
-    ofSetColor(255, 255, 255, 240*pow(entranceRate*(1-lightRate), 3));
-    edittedElavatorImg.bind();
-    plane2.draw();
-    edittedElavatorImg.unbind();
-
-    ofSetColor(255, 255, 255, 140*pow(entranceRate*(1-lightRate), 3));
-    edittedDoorImg.bind();
-    plane3.draw();
-    edittedDoorImg.unbind();
+    if(!danchiOff){
+        ofSetColor(255, 255, 255, 255*pow(entranceRate*(1-lightRate), 3));
+        edittedDanchiImg.bind();
+        plane.draw();
+        edittedDanchiImg.unbind();
+    }
+    if(!elavatorOff){
+        ofSetColor(255, 255, 255, 240*pow(entranceRate*(1-lightRate), 3));
+        edittedElavatorImg.bind();
+        plane2.draw();
+        edittedElavatorImg.unbind();
+    }
+    if(!doorOff){
+        ofSetColor(255, 255, 255, 140*pow(entranceRate*(1-lightRate), 3));
+        edittedDoorImg.bind();
+        plane3.draw();
+        edittedDoorImg.unbind();
+    }
     
     for (int i=0; i<raindropCount; i++) {
         raindrops[i]->draw();
