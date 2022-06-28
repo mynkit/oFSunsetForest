@@ -147,6 +147,8 @@ void ofApp::setup(){
     seaLevel.set(ofGetWidth(), ofGetWidth());
     seaLevel.setPosition(seaLevelX, seaLevelY, seaLevelZ);
     seaLevel.rotate(-90, ofVec3f(1, 0, 0));
+    seaLevelDirection = false;
+    maxSeaLevelY = 830;
 }
 
 //--------------------------------------------------------------
@@ -201,6 +203,16 @@ void ofApp::update(){
             dizziness-=1;
         }
     }
+    if(seaLevelDirection){
+        if(seaLevelY>maxSeaLevelY){
+            seaLevelY-=2;
+        }
+    }else{
+        if(seaLevelY<ofGetHeight()){
+            seaLevelY+=2;
+        }
+    }
+    seaLevel.setPosition(seaLevelX, seaLevelY, seaLevelZ);
     // タイマーが終了したら入り口消えるの解除
     if(elavatorOff){
         if(elavatorTimer<ofGetElapsedTimef()){
@@ -271,8 +283,7 @@ void ofApp::draw(){
         plane3.draw();
         edittedDoorImg.unbind();
     }
-    
-    ofSetColor(255, 255, 255, 100);
+    ofSetColor(255, 255, 255, 100*((float)(ofGetHeight()-seaLevelY)/(ofGetHeight()-maxSeaLevelY)));
     edittedSeaLevelImg.bind();
     seaLevel.draw();
     edittedSeaLevelImg.unbind();
@@ -314,13 +325,12 @@ void ofApp::keyPressed(int key){
             raindropCountDirection=true;
         }
         break;
-    case OF_KEY_UP:
-        seaLevelY -= 10;
-        seaLevel.setPosition(seaLevelX, seaLevelY, seaLevelZ);
-        break;
-    case OF_KEY_DOWN:
-        seaLevelY += 10;
-        seaLevel.setPosition(seaLevelX, seaLevelY, seaLevelZ);
+    case 's':
+        if(seaLevelDirection){
+            seaLevelDirection=false;
+        }else{
+            seaLevelDirection=true;
+        }
         break;
         
     }
