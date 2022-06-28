@@ -12,7 +12,7 @@ raindrop::raindrop(int * seaLevelY) {
     this->y = ofRandom(0,ofGetHeight());
     this->z = ofRandom(-500,500);
     this->speed = 100;
-    this->length = 100;
+    this->length = ofRandom(80,120);
     this->seaLevelY = seaLevelY;
 }
 
@@ -27,7 +27,7 @@ void raindrop::update() {
 
 void raindrop::draw() {
     int color_ = ofRandom(0, 255);
-    ofSetColor(color_,color_,color_,ofRandom(80, 100));
+    ofSetColor(color_,color_,color_,ofRandom(50, 100));
     polyline.clear();
     polyline.addVertex(this->x, this->y, this->z);
     polyline.addVertex(this->x, this->y+this->length, this->z);
