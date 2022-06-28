@@ -18,7 +18,7 @@ void ofApp::setup(){
     raindropCount = 0;
     raindrops.resize(maxRaindropCount);
     for (int i=0; i<raindrops.size(); i++) {
-        raindrops[i] = new raindrop();
+        raindrops[i] = new raindrop(&seaLevelY);
     }
     
     
@@ -153,7 +153,7 @@ void ofApp::setup(){
 void ofApp::update(){
     movie.update();
     for (int i=0; i<raindrops.size(); i++) {
-        raindrops[i]->update(seaLevelY);
+        raindrops[i]->update();
     }
     if (raindropCountDirection) {
         if(raindropCount<maxRaindropCount){

@@ -7,18 +7,19 @@
 
 #include "raindrop.hpp"
 
-raindrop::raindrop() {
+raindrop::raindrop(int * seaLevelY) {
     this->x = ofRandom(0,ofGetWidth());
     this->y = ofRandom(0,ofGetHeight());
     this->z = ofRandom(-500,500);
     this->speed = 100;
     this->length = 100;
+    this->seaLevelY = seaLevelY;
 }
 
-void raindrop::update(int seaLevelY) {
+void raindrop::update() {
     this->y = this->y + this->speed;
-    if (this->y+this->length > seaLevelY) {
-        this->y = seaLevelY-ofGetHeight();
+    if (this->y+this->length/2 > *seaLevelY) {
+        this->y = *seaLevelY-ofGetHeight();
         this->x = ofRandom(0,ofGetWidth());
         this->z = ofRandom(-500,500);
     }
