@@ -153,7 +153,7 @@ void ofApp::setup(){
 void ofApp::update(){
     movie.update();
     for (int i=0; i<raindrops.size(); i++) {
-        raindrops[i]->update();
+        raindrops[i]->update(seaLevelY);
     }
     if (raindropCountDirection) {
         if(raindropCount<maxRaindropCount){
@@ -218,6 +218,7 @@ void ofApp::update(){
         }
     }
     
+    // 水面をゆらゆらさせる
     ofPixels seaLevelPixels = seaLevelImg.getPixels();
     int filterLevel = 20;
     float waveSpeed = 0.01;

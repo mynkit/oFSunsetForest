@@ -19,7 +19,7 @@ class raindrop {
         float height;
         raindrop();
         ~raindrop();
-        void update();
+        void update(int seaLevelY);
         void draw();
     private:
         ofPolyline polyline;

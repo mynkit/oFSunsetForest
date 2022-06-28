@@ -15,10 +15,10 @@ raindrop::raindrop() {
     this->length = 100;
 }
 
-void raindrop::update() {
+void raindrop::update(int seaLevelY) {
     this->y = this->y + this->speed;
-    if (this->y > ofGetHeight()) {
-        this->y = 0;
+    if (this->y+this->length > seaLevelY) {
+        this->y = seaLevelY-ofGetHeight();
         this->x = ofRandom(0,ofGetWidth());
         this->z = ofRandom(-500,500);
     }
