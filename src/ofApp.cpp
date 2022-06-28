@@ -178,7 +178,7 @@ void ofApp::update(){
             dizziness+=1;
         }
         // 目眩し始めたら入り口たちは点滅する
-        bool rnd = ofRandom(100)<0.8;
+        bool rnd = ofRandom(100)<1;
         if(rnd) {
             elavatorOff=true;
             elavatorTimer=ofGetElapsedTimef() + ofRandom(0.f,0.08f);
