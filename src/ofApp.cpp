@@ -188,16 +188,6 @@ void ofApp::update(){
         if(dizziness<100){
             dizziness+=1;
         }
-        // 目眩し始めたら入り口たちは点滅する
-        bool rnd = ofRandom(100)<1;
-        if(rnd) {
-            elavatorOff=true;
-            elavatorTimer=ofGetElapsedTimef() + ofRandom(0.f,0.08f);
-            danchiOff=true;
-            danchiTimer=ofGetElapsedTimef() + ofRandom(0.f,0.08f);
-            doorOff=true;
-            doorTimer=ofGetElapsedTimef() + ofRandom(0.f,0.08f);
-        }
     }else{
         if(dizziness>0){
             dizziness-=1;
@@ -213,6 +203,16 @@ void ofApp::update(){
         }
     }
     seaLevel.setPosition(seaLevelX, seaLevelY, seaLevelZ);
+    if(seaLevelY<=(maxSeaLevelY+ofGetHeight())/2){
+        // 入り口が水面の下に入ったら入り口たちは点滅する
+        bool rnd = ofRandom(100)<1;
+        if(rnd) {
+            elavatorOff=true;
+            elavatorTimer=ofGetElapsedTimef() + ofRandom(0.f,0.08f);
+            doorOff=true;
+            doorTimer=ofGetElapsedTimef() + ofRandom(0.f,0.08f);
+        }
+    }
     // タイマーが終了したら入り口消えるの解除
     if(elavatorOff){
         if(elavatorTimer<ofGetElapsedTimef()){
