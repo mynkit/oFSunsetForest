@@ -29,10 +29,13 @@ class ofApp : public ofBaseApp{
         ofImage edittedDoorImg;
         ofImage forestImg;
         ofImage edittedForestImg;
+        ofImage seaLevelImg;
+        ofImage edittedSeaLevelImg;
         ofVideoPlayer movie;
         ofPlanePrimitive plane;
         ofPlanePrimitive plane2;
         ofPlanePrimitive plane3;
+        ofPlanePrimitive seaLevel;
         bool elavatorOff;
         bool danchiOff;
         bool doorOff;
@@ -48,6 +51,9 @@ class ofApp : public ofBaseApp{
         float plane3X;
         float plane3Y;
         float plane3Z;
+        float seaLevelX;
+        float seaLevelY;
+        float seaLevelZ;
         int dizziness;
         bool dizzinessDirection;
         float lightRate;

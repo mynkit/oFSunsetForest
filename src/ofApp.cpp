@@ -2,10 +2,12 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    ofSetFrameRate(60);
     ofDisableArbTex();
     ofEnableAlphaBlending();
     
     forestImg.load("forest.jpg");
+    seaLevelImg.load("forest640.jpg");
     elavatorImg.load("elavator.jpg");
     danchiImg.load("danchi_trim.jpg");
     doorImg.load("door.jpg");
@@ -138,6 +140,13 @@ void ofApp::setup(){
     plane3.setPosition(plane3X, plane3Y, plane3Z);
     plane3.rotate(180, ofVec3f(1, 0, 0));
     plane3.rotate(-2, ofVec3f(0, 0, 1));
+    
+    seaLevelX = ofGetWidth()/2;
+    seaLevelY = ofGetHeight();
+    seaLevelZ = ofGetWidth()/2;
+    seaLevel.set(ofGetWidth(), ofGetWidth());
+    seaLevel.setPosition(seaLevelX, seaLevelY, seaLevelZ);
+    seaLevel.rotate(-90, ofVec3f(1, 0, 0));
 }
 
 //--------------------------------------------------------------
@@ -208,6 +217,26 @@ void ofApp::update(){
             doorOff=false;
         }
     }
+    
+    ofPixels seaLevelPixels = seaLevelImg.getPixels();
+    int filterLevel = 20;
+    float waveSpeed = 0.01;
+    for (int y = 0; y < seaLevelPixels.getHeight(); y++) {
+        int noise_x = ofMap(ofNoise(y * waveSpeed + ofGetFrameNum() * waveSpeed), 0, 1, -filterLevel, filterLevel);
+        noise_x = noise_x * ofMap(y, 0, seaLevelPixels.getHeight(), 1, 0.1);
+        if (noise_x > 0) {
+            for (int x = seaLevelPixels.getWidth() - 1; x > noise_x; x--) {
+                seaLevelPixels.setColor(x, y, seaLevelPixels.getColor(x - noise_x, y));
+            }
+        }
+        else if(noise_x < 0) {
+            for (int x = 0; x < seaLevelPixels.getWidth() + noise_x; x++) {
+                seaLevelPixels.setColor(x, y, seaLevelPixels.getColor(x - noise_x, y));
+            }
+        }
+    }
+    edittedSeaLevelImg.setFromPixels(seaLevelPixels);
+ 
 }
 
 //--------------------------------------------------------------
@@ -241,6 +270,11 @@ void ofApp::draw(){
         plane3.draw();
         edittedDoorImg.unbind();
     }
+    
+    ofSetColor(255, 255, 255, 100);
+    edittedSeaLevelImg.bind();
+    seaLevel.draw();
+    edittedSeaLevelImg.unbind();
     
     for (int i=0; i<raindropCount; i++) {
         raindrops[i]->draw();
@@ -278,6 +312,14 @@ void ofApp::keyPressed(int key){
         }else{
             raindropCountDirection=true;
         }
+        break;
+    case OF_KEY_UP:
+        seaLevelY -= 10;
+        seaLevel.setPosition(seaLevelX, seaLevelY, seaLevelZ);
+        break;
+    case OF_KEY_DOWN:
+        seaLevelY += 10;
+        seaLevel.setPosition(seaLevelX, seaLevelY, seaLevelZ);
         break;
         
     }
