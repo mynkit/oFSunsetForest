@@ -14,7 +14,7 @@ void ofApp::setup(){
     movie.load("forest_trim_concat_0.4.mov");
     movie.play();
     // 雨粒
-    maxRaindropCount = 300;
+    maxRaindropCount = 400;
     raindropCount = 0;
     raindrops.resize(maxRaindropCount);
     for (int i=0; i<raindrops.size(); i++) {
@@ -220,8 +220,8 @@ void ofApp::update(){
     
     // 水面をゆらゆらさせる
     ofPixels seaLevelPixels = seaLevelImg.getPixels();
-    int filterLevel = 20;
-    float waveSpeed = 0.01;
+    int filterLevel = 13;
+    float waveSpeed = 0.2;
     for (int y = 0; y < seaLevelPixels.getHeight(); y++) {
         int noise_x = ofMap(ofNoise(y * waveSpeed + ofGetFrameNum() * waveSpeed), 0, 1, -filterLevel, filterLevel);
         noise_x = noise_x * ofMap(y, 0, seaLevelPixels.getHeight(), 1, 0.1);
