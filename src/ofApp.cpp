@@ -203,11 +203,15 @@ void ofApp::update(){
     }
     if (raindropCountDirection) {
         if(raindropCount<maxRaindropCount){
-            raindropCount+=1;
+            if (ofRandom(1)<0.375){
+                raindropCount+=1;
+            }
         }
     }else{
         if(raindropCount>0){
-            raindropCount-=1;
+            if (ofRandom(1)<0.375){
+                raindropCount-=1;
+            }
         }
     }
     if (lightRateDirection) {
