@@ -7,7 +7,34 @@ void ofApp::setup(){
     ofEnableAlphaBlending();
     
     // OSCのセッティング
-    sender.setup(HOST, PORT);
+    tidalSender.setup(HOST, TIDALPORT);
+    scSender.setup(HOST, SCPORT);
+    
+    // SuperColliderで再生予定の音の準備
+    ofxOscMessage m;
+    // 雨
+    m.setAddress("/s_new");
+    m.addStringArg("rain");
+    m.addIntArg(1000);
+    m.addIntArg(1);
+    m.addIntArg(0);
+    m.addStringArg("amp");
+    m.addFloatArg(0.f);
+    scSender.sendMessage(m, false);
+    m.clear();
+    // 森の喧騒
+    m.setAddress("/s_new");
+    m.addStringArg("sunsetForest");
+    m.addIntArg(1001);
+    m.addIntArg(1);
+    m.addIntArg(0);
+    m.addStringArg("amp");
+    m.addFloatArg(0.f);
+    m.addStringArg("groundNoise");
+    m.addFloatArg(0.f);
+    scSender.sendMessage(m, false);
+    m.clear();
+    
     
     // 画像・動画の読み込み
     forestImg.load("forest.jpg");
@@ -108,6 +135,7 @@ void ofApp::setup(){
     }
     edittedDoorImg.setFromPixels(doorPixels);
 
+    forestDirection = false;
     
     dizziness = 0;
     lightRate = 1.;
@@ -260,13 +288,13 @@ void ofApp::update(){
     m.setAddress("/ctrl");
     m.addStringArg("rainfall");
     m.addFloatArg(ofMap((float)raindropCount, 0.f, (float)maxRaindropCount, 0.f, 1.f, true));
-    sender.sendMessage(m, false);
+    tidalSender.sendMessage(m, false);
     m.clear();
     // 水位
     m.setAddress("/ctrl");
     m.addStringArg("pond");
     m.addFloatArg(ofMap(seaLevelY, ofGetHeight(), maxSeaLevelY, 0.f, 1.f, true));
-    sender.sendMessage(m, false);
+    tidalSender.sendMessage(m, false);
     m.clear();
 }
 
@@ -336,11 +364,54 @@ void ofApp::keyPressed(int key){
             entranceRateDirection=true;
         }
         break;
+    case 'f':
+        if(forestDirection) {
+            forestDirection=false;
+            // SuperColliderで再生予定の音の準備
+            ofxOscMessage m;
+            // 雨
+            m.setAddress("/n_set");
+            m.addIntArg(1001);
+            m.addStringArg("amp");
+            m.addFloatArg(0.f);
+            scSender.sendMessage(m, false);
+            m.clear();
+        }else{
+            forestDirection=true;
+            // SuperColliderで再生予定の音の準備
+            ofxOscMessage m;
+            // 雨
+            m.setAddress("/n_set");
+            m.addIntArg(1001);
+            m.addStringArg("amp");
+            m.addFloatArg(1.f);
+            scSender.sendMessage(m, false);
+            m.clear();
+        }
+        break;
     case 'r':
         if(raindropCountDirection) {
             raindropCountDirection=false;
+            // SuperColliderで再生予定の音の準備
+            ofxOscMessage m;
+            // 雨
+            m.setAddress("/n_set");
+            m.addIntArg(1000);
+            m.addStringArg("amp");
+            m.addFloatArg(0.f);
+            scSender.sendMessage(m, false);
+            m.clear();
         }else{
             raindropCountDirection=true;
+            // SuperColliderで再生予定の音の準備
+            ofxOscMessage m;
+            // 雨
+            m.setAddress("/n_set");
+            m.addIntArg(1000);
+            m.addStringArg("amp");
+            m.addFloatArg(1.f);
+            scSender.sendMessage(m, false);
+            m.clear();
         }
         break;
     case 's':
@@ -402,4 +473,20 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
 
+}
+
+//--------------------------------------------------------------
+void ofApp::exit(){
+    // SuperColliderにOSCメッセージを送って停止させる
+    ofxOscMessage m;
+    // 雨
+    m.setAddress("/n_free");
+    m.addIntArg(1000);
+    scSender.sendMessage(m, false);
+    m.clear();
+    // 森の喧騒
+    m.setAddress("/n_free");
+    m.addIntArg(1001);
+    scSender.sendMessage(m, false);
+    m.clear();
 }

@@ -5,7 +5,8 @@
 #include "ofxOsc.h"
 
 #define HOST "localhost"
-#define PORT 6060
+#define TIDALPORT 6060
+#define SCPORT 57110
 
 class ofApp : public ofBaseApp{
 
@@ -25,6 +26,7 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+        void exit();
         ofImage danchiImg;
         ofImage elavatorImg;
         ofImage edittedElavatorImg;
@@ -66,11 +68,12 @@ class ofApp : public ofBaseApp{
         bool lightRateDirection;
         float entranceRate;
         bool entranceRateDirection;
-        ofCamera cam;
         vector<raindrop*> raindrops;
         int maxRaindropCount;
         int raindropCount;
         bool raindropCountDirection;
+        bool forestDirection;   
         // OSC
-        ofxOscSender sender;
+        ofxOscSender tidalSender;
+        ofxOscSender scSender;
 };
