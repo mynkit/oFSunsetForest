@@ -72,7 +72,8 @@ class ofApp : public ofBaseApp{
         int maxRaindropCount;
         int raindropCount;
         bool raindropCountDirection;
-        bool forestDirection;   
+        float forestView;
+        bool forestDirection;
         // OSC
         ofxOscSender tidalSender;
         ofxOscSender scSender;

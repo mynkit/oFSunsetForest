@@ -44,6 +44,8 @@ void ofApp::setup(){
     doorImg.load("door.jpg");
     movie.load("forest_trim_concat_0.4.mov");
     movie.play();
+    // 森
+    forestView = 0.f;
     // 雨粒
     maxRaindropCount = 400;
     raindropCount = 0;
@@ -189,6 +191,15 @@ void ofApp::update(){
     for (int i=0; i<raindrops.size(); i++) {
         raindrops[i]->update();
     }
+    if(forestDirection){
+        if(forestView<1){
+            forestView+=0.002;
+        }
+    }else{
+        if(forestView>0){
+            forestView-=0.002;
+        }
+    }
     if (raindropCountDirection) {
         if(raindropCount<maxRaindropCount){
             raindropCount+=1;
@@ -284,6 +295,12 @@ void ofApp::update(){
     
     // TidalCyclesにOSCメッセージを送る
     ofxOscMessage m;
+    // 森の生き物
+    m.setAddress("/ctrl");
+    m.addStringArg("forest");
+    m.addFloatArg(forestView);
+    tidalSender.sendMessage(m, false);
+    m.clear();
     // 雨量
     m.setAddress("/ctrl");
     m.addStringArg("rainfall");
@@ -302,29 +319,29 @@ void ofApp::update(){
 void ofApp::draw(){
     ofBackground(185, 183, 184);
     
-    ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, 255-lightRate*50);
+    ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, (255-lightRate*50)*forestView);
     forestImg.draw(0, 0, 1782, 1336.5);
 
-    ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, 255-lightRate*255);
+    ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, (255-lightRate*255)*forestView);
     edittedForestImg.draw(0, 0, 1782, 1336.5);
 
     ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, dizziness-lightRate*20);
     movie.draw(0, 0, 1782, 1336.5);
 
     if(!danchiOff){
-        ofSetColor(255, 255, 255, 255*pow(entranceRate*(1-lightRate), 3));
+        ofSetColor(255, 255, 255, 255*pow(entranceRate*(1-lightRate), 3)*pow(forestView, 10));
         edittedDanchiImg.bind();
         plane.draw();
         edittedDanchiImg.unbind();
     }
     if(!elavatorOff){
-        ofSetColor(255, 255, 255, 240*pow(entranceRate*(1-lightRate), 3));
+        ofSetColor(255, 255, 255, 240*pow(entranceRate*(1-lightRate), 3)*pow(forestView, 10));
         edittedElavatorImg.bind();
         plane2.draw();
         edittedElavatorImg.unbind();
     }
     if(!doorOff){
-        ofSetColor(255, 255, 255, 140*pow(entranceRate*(1-lightRate), 3));
+        ofSetColor(255, 255, 255, 140*pow(entranceRate*(1-lightRate), 3)*pow(forestView, 10));
         edittedDoorImg.bind();
         plane3.draw();
         edittedDoorImg.unbind();
@@ -488,5 +505,30 @@ void ofApp::exit(){
     m.setAddress("/n_free");
     m.addIntArg(1001);
     scSender.sendMessage(m, false);
+    m.clear();
+    // TidalCycles側のstateもリセットする
+    // 雨量
+    m.setAddress("/ctrl");
+    m.addStringArg("rainfall");
+    m.addFloatArg(0.f);
+    tidalSender.sendMessage(m, false);
+    m.clear();
+    // 森の生き物
+    m.setAddress("/ctrl");
+    m.addStringArg("forest");
+    m.addFloatArg(0.f);
+    tidalSender.sendMessage(m, false);
+    m.clear();
+    // 雨量
+    m.setAddress("/ctrl");
+    m.addStringArg("rainfall");
+    m.addFloatArg(0.f);
+    tidalSender.sendMessage(m, false);
+    m.clear();
+    // 水位
+    m.setAddress("/ctrl");
+    m.addStringArg("pond");
+    m.addFloatArg(0.f);
+    tidalSender.sendMessage(m, false);
     m.clear();
 }
