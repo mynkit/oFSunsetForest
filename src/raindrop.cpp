@@ -21,7 +21,7 @@ void raindrop::update() {
     if (this->y > *seaLevelY) {
         this->y = *seaLevelY-ofGetHeight();
         this->x = ofRandom(0,ofGetWidth());
-        this->z = ofRandom(-500,500);
+        this->z = ofRandom(-ofGetWidth(),ofGetWidth());
     }
 }
 
