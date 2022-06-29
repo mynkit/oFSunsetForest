@@ -6,6 +6,10 @@ void ofApp::setup(){
     ofDisableArbTex();
     ofEnableAlphaBlending();
     
+    // OSCのセッティング
+    sender.setup(HOST, PORT);
+    
+    // 画像・動画の読み込み
     forestImg.load("forest.jpg");
     seaLevelImg.load("forest640.jpg");
     elavatorImg.load("elavator.jpg");
@@ -249,7 +253,21 @@ void ofApp::update(){
         }
     }
     edittedSeaLevelImg.setFromPixels(seaLevelPixels);
- 
+    
+    // TidalCyclesにOSCメッセージを送る
+    ofxOscMessage m;
+    // 雨量
+    m.setAddress("/ctrl");
+    m.addStringArg("rainfall");
+    m.addFloatArg(ofMap((float)raindropCount, 0.f, (float)maxRaindropCount, 0.f, 1.f, true));
+    sender.sendMessage(m, false);
+    m.clear();
+    // 水位
+    m.setAddress("/ctrl");
+    m.addStringArg("pond");
+    m.addFloatArg(ofMap(seaLevelY, ofGetHeight(), maxSeaLevelY, 0.f, 1.f, true));
+    sender.sendMessage(m, false);
+    m.clear();
 }
 
 //--------------------------------------------------------------

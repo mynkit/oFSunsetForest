@@ -2,6 +2,10 @@
 
 #include "ofMain.h"
 #include "raindrop.hpp"
+#include "ofxOsc.h"
+
+#define HOST "localhost"
+#define PORT 6060
 
 class ofApp : public ofBaseApp{
 
@@ -67,4 +71,6 @@ class ofApp : public ofBaseApp{
         int maxRaindropCount;
         int raindropCount;
         bool raindropCountDirection;
+        // OSC
+        ofxOscSender sender;
 };
