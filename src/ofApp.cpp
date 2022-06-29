@@ -239,11 +239,11 @@ void ofApp::update(){
     }
     if(seaLevelDirection){
         if(seaLevelY>maxSeaLevelY){
-            seaLevelY-=0.2;
+            seaLevelY-=0.25;
         }
     }else{
         if(seaLevelY<ofGetHeight()){
-            seaLevelY+=0.2;
+            seaLevelY+=0.25;
         }
     }
     seaLevel.setPosition(seaLevelX, seaLevelY, seaLevelZ);
