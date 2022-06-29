@@ -11,8 +11,8 @@ raindrop::raindrop(int * seaLevelY) {
     this->x = ofRandom(0,ofGetWidth());
     this->y = ofRandom(0,ofGetHeight());
     this->z = ofRandom(-500,500);
-    this->speed = 100;
-    this->length = ofRandom(80,120);
+    this->speed = 150;
+    this->length = ofRandom(100,150);
     this->seaLevelY = seaLevelY;
 }
 
