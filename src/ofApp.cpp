@@ -139,7 +139,8 @@ void ofApp::setup(){
 
     forestDirection = false;
     
-    dizziness = 0;
+    dizziness = 0.;
+    maxDizziness = 100.;
     lightRate = 1.;
     entranceRate = 0.;
     lightRateDirection = true;
@@ -176,7 +177,7 @@ void ofApp::setup(){
     plane3.rotate(-2, ofVec3f(0, 0, 1));
     
     seaLevelX = ofGetWidth()/2;
-    seaLevelY = ofGetHeight();
+    seaLevelY = (float)ofGetHeight();
     seaLevelZ = ofGetWidth()/2;
     seaLevel.set(ofGetWidth(), ofGetWidth());
     seaLevel.setPosition(seaLevelX, seaLevelY, seaLevelZ);
@@ -228,21 +229,21 @@ void ofApp::update(){
         }
     }
     if (dizzinessDirection) {
-        if(dizziness<100){
-            dizziness+=1;
+        if(dizziness<maxDizziness){
+            dizziness+=0.1;
         }
     }else{
         if(dizziness>0){
-            dizziness-=1;
+            dizziness-=0.1;
         }
     }
     if(seaLevelDirection){
         if(seaLevelY>maxSeaLevelY){
-            seaLevelY-=1;
+            seaLevelY-=0.2;
         }
     }else{
         if(seaLevelY<ofGetHeight()){
-            seaLevelY+=1;
+            seaLevelY+=0.2;
         }
     }
     seaLevel.setPosition(seaLevelX, seaLevelY, seaLevelZ);
@@ -312,6 +313,14 @@ void ofApp::update(){
     m.addStringArg("pond");
     m.addFloatArg(ofMap(seaLevelY, ofGetHeight(), maxSeaLevelY, 0.f, 1.f, true));
     tidalSender.sendMessage(m, false);
+    m.clear();
+    // SuperColliderにOSCメッセージ送る
+    // 地響き
+    m.setAddress("/n_set");
+    m.addIntArg(1001);
+    m.addStringArg("groundNoise");
+    m.addFloatArg(ofMap((float)dizziness, 0.f, (float)maxDizziness, 0.f, 0.9f, true));
+    scSender.sendMessage(m, false);
     m.clear();
 }
 

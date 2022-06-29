@@ -7,7 +7,7 @@
 
 #include "raindrop.hpp"
 
-raindrop::raindrop(int * seaLevelY) {
+raindrop::raindrop(float * seaLevelY) {
     this->x = ofRandom(0,ofGetWidth());
     this->y = ofRandom(0,ofGetHeight());
     this->z = ofRandom(-500,500);

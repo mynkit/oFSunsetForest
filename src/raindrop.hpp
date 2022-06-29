@@ -17,11 +17,11 @@ class raindrop {
         float speed;
         float length;
         float height;
-        raindrop(int * seaLevelY);
+        raindrop(float * seaLevelY);
         ~raindrop();
         void update();
         void draw();
     private:
         ofPolyline polyline;
-        int * seaLevelY;
+        float * seaLevelY;
 };

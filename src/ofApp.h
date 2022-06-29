@@ -58,11 +58,12 @@ class ofApp : public ofBaseApp{
         float plane3Y;
         float plane3Z;
         int seaLevelX;
-        int seaLevelY;
+        float seaLevelY;
         int maxSeaLevelY;
         int seaLevelZ;
         bool seaLevelDirection;
-        int dizziness;
+        float dizziness;
+        float maxDizziness;
         bool dizzinessDirection;
         float lightRate;
         bool lightRateDirection;
