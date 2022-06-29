@@ -69,6 +69,8 @@ class ofApp : public ofBaseApp{
         bool lightRateDirection;
         float entranceRate;
         bool entranceRateDirection;
+        float entranceSoundTimer;
+        float entranceSoundLifeTime;
         vector<raindrop*> raindrops;
         int maxRaindropCount;
         int raindropCount;

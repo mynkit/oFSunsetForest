@@ -34,7 +34,30 @@ void ofApp::setup(){
     m.addFloatArg(0.f);
     scSender.sendMessage(m, false);
     m.clear();
-    
+    // 入り口の出現音
+    m.setAddress("/s_new");
+    m.addStringArg("sine");
+    m.addIntArg(1002);
+    m.addIntArg(1);
+    m.addIntArg(0);
+    m.addStringArg("amp");
+    m.addFloatArg(0.f);
+    m.addStringArg("freq");
+    m.addFloatArg(142.65225);
+    m.addStringArg("parFreq");
+    m.addFloatArg(1.5);
+    m.addStringArg("pan2Freq");
+    m.addFloatArg(11);
+//    m.addStringArg("pan");
+//    m.addFloatArg(0.7);
+    m.addStringArg("vibratoDepth");
+    m.addFloatArg(0.3);
+    m.addStringArg("vibratoFreq");
+    m.addFloatArg(3);
+    m.addStringArg("reverb");
+    m.addFloatArg(0.6);
+    scSender.sendMessage(m, false);
+    m.clear();
     
     // 画像・動画の読み込み
     forestImg.load("forest.jpg");
@@ -153,6 +176,8 @@ void ofApp::setup(){
     elavatorTimer = ofGetElapsedTimef();
     danchiTimer = ofGetElapsedTimef();
     doorTimer = ofGetElapsedTimef();
+    entranceSoundTimer = ofGetElapsedTimef();
+    entranceSoundLifeTime = 20.f; //寿命
     
     planeX = 1100;
     planeY = 720;
@@ -326,6 +351,15 @@ void ofApp::update(){
     m.addFloatArg(ofMap((float)dizziness, 0.f, (float)maxDizziness, 0.f, 0.9f, true));
     scSender.sendMessage(m, false);
     m.clear();
+    // 入り口
+    m.setAddress("/n_set");
+    m.addIntArg(1002);
+    m.addStringArg("amp");
+    float entranceVol = pow(entranceRate*(1-lightRate), 3)*pow(forestView, 10)*0.01;
+    entranceVol = entranceVol * pow((entranceSoundTimer - ofGetElapsedTimef()) / entranceSoundLifeTime, 0.25);
+    m.addFloatArg(entranceVol);
+    scSender.sendMessage(m, false);
+    m.clear();
 }
 
 //--------------------------------------------------------------
@@ -392,6 +426,7 @@ void ofApp::keyPressed(int key){
             entranceRateDirection=false;
         }else{
             entranceRateDirection=true;
+            entranceSoundTimer = ofGetElapsedTimef() + entranceSoundLifeTime;
         }
         break;
     case 'f':
@@ -517,6 +552,11 @@ void ofApp::exit(){
     // 森の喧騒
     m.setAddress("/n_free");
     m.addIntArg(1001);
+    scSender.sendMessage(m, false);
+    m.clear();
+    // 入り口
+    m.setAddress("/n_free");
+    m.addIntArg(1002);
     scSender.sendMessage(m, false);
     m.clear();
     // TidalCycles側のstateもリセットする
