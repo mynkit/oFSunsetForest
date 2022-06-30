@@ -457,7 +457,7 @@ void ofApp::keyPressed(int key){
             m.setAddress("/n_set");
             m.addIntArg(1001);
             m.addStringArg("amp");
-            m.addFloatArg(2.f);
+            m.addFloatArg(2.3f);
             scSender.sendMessage(m, false);
             m.clear();
         }
