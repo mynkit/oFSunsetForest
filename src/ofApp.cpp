@@ -9,6 +9,7 @@ void ofApp::setup(){
     // OSCのセッティング
     tidalSender.setup(HOST, TIDALPORT);
     scSender.setup(HOST, SCPORT);
+    sdSender.setup(HOST, SDPORT);
     
     // SuperColliderで再生予定の音の準備
     ofxOscMessage m;
@@ -363,7 +364,7 @@ void ofApp::update(){
     m.setAddress("/n_set");
     m.addIntArg(1002);
     m.addStringArg("amp");
-    float entranceVol = pow(entranceRate*(1-lightRate), 3)*pow(forestView, 10)*0.03;
+    float entranceVol = pow(entranceRate*(1-lightRate), 3)*pow(forestView, 10)*0.027;
     entranceVol = entranceVol * pow((entranceSoundTimer - ofGetElapsedTimef()) / entranceSoundLifeTime, 0.25);
     m.addFloatArg(entranceVol);
     scSender.sendMessage(m, false);
@@ -496,6 +497,28 @@ void ofApp::keyPressed(int key){
         }else{
             seaLevelDirection=true;
         }
+        break;
+    case 'g':
+        // SuperColliderで再生予定の音の準備
+        ofxOscMessage m;
+        // 鐘
+        m.setAddress("/dirt/play");
+        m.addStringArg("s");
+        m.addStringArg("supergong");
+        m.addStringArg("n");
+        m.addIntArg(-12);
+        m.addStringArg("gain");
+        m.addFloatArg(0.45);
+        m.addStringArg("sustain");
+        m.addFloatArg(10);
+        m.addStringArg("scReverb");
+        m.addFloatArg(0.5);
+        m.addStringArg("theta");
+        m.addFloatArg(0.2);
+        m.addStringArg("hpf");
+        m.addFloatArg(500);
+        sdSender.sendMessage(m, false);
+        m.clear();
         break;
         
     }

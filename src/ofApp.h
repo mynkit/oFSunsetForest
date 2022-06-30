@@ -7,6 +7,7 @@
 #define HOST "localhost"
 #define TIDALPORT 6060
 #define SCPORT 57110
+#define SDPORT 57120
 
 class ofApp : public ofBaseApp{
 
@@ -81,4 +82,5 @@ class ofApp : public ofBaseApp{
         // OSC
         ofxOscSender tidalSender;
         ofxOscSender scSender;
+        ofxOscSender sdSender;
 };
