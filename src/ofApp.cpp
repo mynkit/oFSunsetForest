@@ -444,9 +444,7 @@ void ofApp::keyPressed(int key){
     case 'f':
         if(forestDirection) {
             forestDirection=false;
-            // SuperColliderで再生予定の音の準備
             ofxOscMessage m;
-            // 雨
             m.setAddress("/n_set");
             m.addIntArg(1001);
             m.addStringArg("amp");
@@ -455,13 +453,11 @@ void ofApp::keyPressed(int key){
             m.clear();
         }else{
             forestDirection=true;
-            // SuperColliderで再生予定の音の準備
             ofxOscMessage m;
-            // 雨
             m.setAddress("/n_set");
             m.addIntArg(1001);
             m.addStringArg("amp");
-            m.addFloatArg(1.f);
+            m.addFloatArg(2.f);
             scSender.sendMessage(m, false);
             m.clear();
         }
