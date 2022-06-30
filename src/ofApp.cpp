@@ -177,7 +177,7 @@ void ofApp::setup(){
     danchiTimer = ofGetElapsedTimef();
     doorTimer = ofGetElapsedTimef();
     entranceSoundTimer = ofGetElapsedTimef();
-    entranceSoundLifeTime = 20.f; //寿命
+    entranceSoundLifeTime = 15.f; //寿命
     
     planeX = 1100;
     planeY = 720;
@@ -362,7 +362,7 @@ void ofApp::update(){
     m.setAddress("/n_set");
     m.addIntArg(1002);
     m.addStringArg("amp");
-    float entranceVol = pow(entranceRate*(1-lightRate), 3)*pow(forestView, 10)*0.05;
+    float entranceVol = pow(entranceRate*(1-lightRate), 3)*pow(forestView, 10)*0.03;
     entranceVol = entranceVol * pow((entranceSoundTimer - ofGetElapsedTimef()) / entranceSoundLifeTime, 0.25);
     m.addFloatArg(entranceVol);
     scSender.sendMessage(m, false);
