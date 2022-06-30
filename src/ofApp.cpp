@@ -278,10 +278,11 @@ void ofApp::update(){
     seaLevel.setPosition(seaLevelX, seaLevelY, seaLevelZ);
     if(seaLevelY<=(maxSeaLevelY+ofGetHeight())/2){
         // 入り口が水面の下に入ったら入り口たちは点滅する
-        bool rnd = ofRandom(100)<1;
-        if(rnd) {
+        if(ofRandom(100)<1) {
             elavatorOff=true;
             elavatorTimer=ofGetElapsedTimef() + ofRandom(0.f,0.08f);
+        }
+        if(ofRandom(100)<1) {
             doorOff=true;
             doorTimer=ofGetElapsedTimef() + ofRandom(0.f,0.08f);
         }
