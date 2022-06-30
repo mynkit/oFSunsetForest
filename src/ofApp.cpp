@@ -344,6 +344,12 @@ void ofApp::update(){
     m.addFloatArg(ofMap(seaLevelY, ofGetHeight(), maxSeaLevelY, 0.f, 1.f, true));
     tidalSender.sendMessage(m, false);
     m.clear();
+    // 地響き
+    m.setAddress("/ctrl");
+    m.addStringArg("groundNoise");
+    m.addFloatArg(ofMap((float)dizziness, 0.f, (float)maxDizziness, 0.f, 2.5f, true));
+    tidalSender.sendMessage(m, false);
+    m.clear();
     // SuperColliderにOSCメッセージ送る
     // 地響き
     m.setAddress("/n_set");
@@ -374,6 +380,7 @@ void ofApp::draw(){
     edittedForestImg.draw(0, 0, 1782, 1336.5);
 
     ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, dizziness-lightRate*20);
+    
     movie.draw(0, 0, 1782, 1336.5);
 
     if(!danchiOff){
@@ -570,6 +577,12 @@ void ofApp::exit(){
     // 森の生き物
     m.setAddress("/ctrl");
     m.addStringArg("forest");
+    m.addFloatArg(0.f);
+    tidalSender.sendMessage(m, false);
+    m.clear();
+    // 地鳴り
+    m.setAddress("/ctrl");
+    m.addStringArg("groundNoise");
     m.addFloatArg(0.f);
     tidalSender.sendMessage(m, false);
     m.clear();
