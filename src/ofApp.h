@@ -35,6 +35,7 @@ class ofApp : public ofBaseApp{
         ofImage edittedDoorImg;
         ofImage forestImg;
         ofImage edittedForestImg;
+        ofImage skyImg;
         ofImage seaLevelImg;
         ofImage edittedSeaLevelImg;
         ofVideoPlayer movie;

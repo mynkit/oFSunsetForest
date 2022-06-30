@@ -61,6 +61,7 @@ void ofApp::setup(){
     
     // 画像・動画の読み込み
     forestImg.load("forest.jpg");
+    skyImg.load("sky.jpg");
     seaLevelImg.load("forest640.jpg");
     elavatorImg.load("elavator.jpg");
     danchiImg.load("danchi_trim.jpg");
@@ -372,6 +373,8 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     ofBackground(185, 183, 184);
+    ofSetColor(185*1.3, 183*1.3, 184*1.3, (255-lightRate*50)*(1-forestView));
+    skyImg.draw(0, 0, 1782, 1336.5);
     
     ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, (255-lightRate*50)*forestView);
     forestImg.draw(0, 0, 1782, 1336.5);
