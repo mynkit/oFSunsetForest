@@ -355,7 +355,7 @@ void ofApp::update(){
     m.setAddress("/n_set");
     m.addIntArg(1002);
     m.addStringArg("amp");
-    float entranceVol = pow(entranceRate*(1-lightRate), 3)*pow(forestView, 10)*0.01;
+    float entranceVol = pow(entranceRate*(1-lightRate), 3)*pow(forestView, 10)*0.05;
     entranceVol = entranceVol * pow((entranceSoundTimer - ofGetElapsedTimef()) / entranceSoundLifeTime, 0.25);
     m.addFloatArg(entranceVol);
     scSender.sendMessage(m, false);
