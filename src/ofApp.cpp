@@ -343,7 +343,7 @@ void ofApp::update(){
     // 水位
     m.setAddress("/ctrl");
     m.addStringArg("pond");
-    m.addFloatArg(ofMap(seaLevelY, ofGetHeight(), maxSeaLevelY, 0.f, 1.f, true));
+    m.addFloatArg(sqrt(ofMap(seaLevelY, ofGetHeight(), maxSeaLevelY, 0.f, 1.f, true)));
     tidalSender.sendMessage(m, false);
     m.clear();
     // 地響き
@@ -566,7 +566,7 @@ void ofApp::gotMessage(ofMessage msg){
 }
 
 //--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
+void ofApp::dragEvent(ofDragInfo dragInfo){
 
 }
 
