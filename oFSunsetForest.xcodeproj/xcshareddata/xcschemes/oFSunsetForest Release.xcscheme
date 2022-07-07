@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-               BuildableName = "sunsetForest.app"
-               BlueprintName = "sunsetForest"
-               ReferencedContainer = "container:sunsetForest.xcodeproj">
+               BuildableName = "oFSunsetForest.app"
+               BlueprintName = "oFSunsetForest"
+               ReferencedContainer = "container:oFSunsetForest.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "sunsetForest.app"
-            BlueprintName = "sunsetForest"
-            ReferencedContainer = "container:sunsetForest.xcodeproj">
+            BuildableName = "oFSunsetForest.app"
+            BlueprintName = "oFSunsetForest"
+            ReferencedContainer = "container:oFSunsetForest.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -46,15 +46,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       ignoresPersistentStateOnLaunch = "NO"
-      debugDocumentVersioning = "YES"
+      debugDocumentVersioning = "NO"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "sunsetForest.app"
-            BlueprintName = "sunsetForest"
-            ReferencedContainer = "container:sunsetForest.xcodeproj">
+            BuildableName = "oFSunsetForest.app"
+            BlueprintName = "oFSunsetForest"
+            ReferencedContainer = "container:oFSunsetForest.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -65,14 +65,14 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
-      debugDocumentVersioning = "YES">
+      debugDocumentVersioning = "NO">
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "sunsetForest.app"
-            BlueprintName = "sunsetForest"
-            ReferencedContainer = "container:sunsetForest.xcodeproj">
+            BuildableName = "oFSunsetForest.app"
+            BlueprintName = "oFSunsetForest"
+            ReferencedContainer = "container:oFSunsetForest.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

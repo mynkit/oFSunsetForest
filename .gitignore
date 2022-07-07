@@ -1,5 +1,5 @@
-bin/sunsetForest.app/
-bin/sunsetForestDebug.app/
+bin/oFsunsetForest.app/
+bin/oFsunsetForest.app/
 /obj/
 /.vscode/
 *.DS_Store
