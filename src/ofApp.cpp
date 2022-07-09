@@ -343,7 +343,7 @@ void ofApp::update(){
     // 水位
     m.setAddress("/ctrl");
     m.addStringArg("pond");
-    m.addFloatArg(ofMap(seaLevelY, ofGetHeight(), maxSeaLevelY, 0.f, 1.f, true));
+    m.addFloatArg(sqrt(ofMap(seaLevelY, ofGetHeight(), maxSeaLevelY, 0.f, 1.f, true)));
     tidalSender.sendMessage(m, false);
     m.clear();
     // 地響き
@@ -375,17 +375,17 @@ void ofApp::update(){
 void ofApp::draw(){
     ofBackground(185, 183, 184);
     ofSetColor(185*1.3, 183*1.3, 184*1.3, (255-lightRate*50)*(1-forestView));
-    skyImg.draw(0, 0, 1782, 1336.5);
+    skyImg.draw(0, 0, ofGetWidth(), ofGetHeight());
     
     ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, (255-lightRate*50)*forestView);
-    forestImg.draw(0, 0, 1782, 1336.5);
+    forestImg.draw(0, 0, ofGetWidth(), ofGetHeight());
 
     ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, (255-lightRate*255)*forestView);
-    edittedForestImg.draw(0, 0, 1782, 1336.5);
+    edittedForestImg.draw(0, 0, ofGetWidth(), ofGetHeight());
 
     ofSetColor(185+(255-185)*lightRate, 183+(255-183)*lightRate, 184+(255-184)*lightRate, dizziness-lightRate*20);
     
-    movie.draw(0, 0, 1782, 1336.5);
+    movie.draw(0, 0, ofGetWidth(), ofGetHeight());
 
     if(!danchiOff){
         ofSetColor(255, 255, 255, 255*pow(entranceRate*(1-lightRate), 3)*pow(forestView, 10));
@@ -566,7 +566,7 @@ void ofApp::gotMessage(ofMessage msg){
 }
 
 //--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
+void ofApp::dragEvent(ofDragInfo dragInfo){
 
 }
 

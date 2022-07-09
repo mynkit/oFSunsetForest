@@ -2,6 +2,12 @@
 
 # [openFrameworks](https://openframeworks.cc/ja/download/)
 
-osx v0.11.0
+
+# Env
+
+|  |  |
+| --- | --- |
+| OS | macOS Monterey |
+| oF | [of_v20220708_osx_release](https://openframeworks.cc/ci_server/nightlybuilds.html) |
 
 
